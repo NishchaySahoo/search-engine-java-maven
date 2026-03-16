@@ -40,6 +40,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Jedis — Java client for Redis -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>5.1.0</version>
+        </dependency>
+
     </dependencies>
 
 </project>
