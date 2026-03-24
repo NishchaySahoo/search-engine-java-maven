@@ -48,6 +48,16 @@ public class LinkExtractor {
             return false;
         }
 
+        try {
+            java.net.URL parsedUrl = new java.net.URL(url);
+            String host = parsedUrl.getHost();
+            if (!host.equals(config.getAllowedDomain())) {
+                return false;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+
         if (url.contains("#")) {
             return false;
         }
