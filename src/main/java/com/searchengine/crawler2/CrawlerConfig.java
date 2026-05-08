@@ -9,6 +9,7 @@ public class CrawlerConfig {
     private int connectionTimeoutMs;
     private String seedUrl;
 
+    //Controls
     public CrawlerConfig(){
         this.maxPages = 100;
         this.maxDepth = 3;

@@ -3,6 +3,8 @@ package com.searchengine.crawler2;
 import com.searchengine.storage.RedisUrlQueue;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import com.searchengine.storage.PageStorage;
+import com.searchengine.crawler2.CrawledPage;
 
 import java.util.List;
 
@@ -12,16 +14,16 @@ public class RealCrawler {
     private final LinkExtractor linkExtractor;
     private final RobotsChecker robotsChecker;
     private final RedisUrlQueue redisQueue;
+    private final PageStorage pageStorage;
 
     private int pagesCrawled = 0;
 
-    public RealCrawler( CrawlerConfig config, RedisUrlQueue redisQueue) {
-
+    public RealCrawler(CrawlerConfig config, RedisUrlQueue redisQueue, PageStorage pageStorage) {
         this.config = config;
         this.redisQueue = redisQueue;
+        this.pageStorage = pageStorage;
         this.linkExtractor = new LinkExtractor(config);
         this.robotsChecker = new RobotsChecker(config.getConnectionTimeoutMs());
-
     }
 
     public void startCrawling() {
@@ -76,6 +78,8 @@ public class RealCrawler {
 
             String pageTitle = document.title();
             String pageText = document.body().text();
+            CrawledPage crawledPage = new CrawledPage(url, pageTitle, pageText);
+            pageStorage.savePage(crawledPage);
             System.out.println(" Title: " + pageTitle);
             System.out.println("  Content: " + pageText.length() + " chars");
 
