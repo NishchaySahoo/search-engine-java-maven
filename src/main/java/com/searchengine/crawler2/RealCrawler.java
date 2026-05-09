@@ -78,13 +78,13 @@ public class RealCrawler {
 
             String pageTitle = document.title();
             String pageText = document.body().text();
-            CrawledPage crawledPage = new CrawledPage(url, pageTitle, pageText);
-            pageStorage.savePage(crawledPage);
             System.out.println(" Title: " + pageTitle);
             System.out.println("  Content: " + pageText.length() + " chars");
 
             //Extract links
             List<String> links = linkExtractor.extractLinks(document, url);
+            CrawledPage crawledPage = new CrawledPage(url, pageTitle, pageText, links);
+            pageStorage.savePage(crawledPage);
 
             //add new links to redis
             int newLinksAdded = 0;

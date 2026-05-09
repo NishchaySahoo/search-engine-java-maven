@@ -1,5 +1,7 @@
 package com.searchengine.crawler2;
 
+import java.util.List;
+
 public class CrawledPage {
 
     private final String url;
@@ -7,11 +9,13 @@ public class CrawledPage {
     private final String content;
     private final long timestamp;
     private final int wordCount;
+    private final List<String> links;
 
-    public CrawledPage(String url, String title, String content) {
+    public CrawledPage(String url, String title, String content, List<String> links) {
         this.url = url;
         this.title = title;
         this.content = content;
+        this.links = links;
         this.timestamp = System.currentTimeMillis();
         this.wordCount = countWords(content);
     }
@@ -26,6 +30,7 @@ public class CrawledPage {
     public String getContent(){ return content; }
     public long getTimestamp() { return timestamp; }
     public int getWordCount() { return wordCount; }
+    public List<String> getLinks() { return links; }
 
     @Override
     public String toString(){
