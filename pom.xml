@@ -47,6 +47,27 @@
             <version>5.1.0</version>
         </dependency>
 
+        <!-- Apache Lucene Core - the main search library -->
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-core</artifactId>
+            <version>9.8.0</version>
+        </dependency>
+
+        <!-- Lucene Analyzers - for processing/cleaning text -->
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-analyzers-common</artifactId>
+            <version>8.11.2</version>
+        </dependency>
+
+        <!-- Lucene QueryParser - for parsing search queries -->
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-queryparser</artifactId>
+            <version>9.8.0</version>
+        </dependency>
+
     </dependencies>
 
 </project>
