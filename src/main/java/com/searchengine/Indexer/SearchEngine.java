@@ -1,5 +1,10 @@
 package com.searchengine.Indexer;
 
+import com.searchengine.api.SearchResult;
+import com.searchengine.pagerank.PageRankStorage;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
@@ -47,5 +52,31 @@ public class SearchEngine {
             System.out.println();
             rank++;
         }
+    }
+
+    public List<SearchResult> searchWithPageRank(String queryText,
+                                                 int maxResults,
+                                                 PageRankStorage pageRankStorage) throws Exception {
+        Query query = parser.parse(queryText);
+        TopDocs results = searcher.search(query, maxResults);
+
+        List<SearchResult> searchResults = new ArrayList<>();
+
+        for (ScoreDoc scoreDoc : results.scoreDocs) {
+            Document doc = searcher.doc(scoreDoc.doc);
+
+            String url = doc.get("url");
+            String title = doc.get("title");
+            float luceneScore = scoreDoc.score;
+            double pageRankScore = pageRankStorage.getRank(url);
+
+            // combine lucene score and pagerank score
+            double combinedScore = (0.7 * luceneScore) + (0.3 * pageRankScore);
+
+            searchResults.add(new SearchResult(url, title,
+                    luceneScore, pageRankScore, combinedScore));
+        }
+
+        return searchResults;
     }
 }

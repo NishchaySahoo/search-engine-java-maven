@@ -20,6 +20,7 @@ public class LuceneIndexer {
     public LuceneIndexer(String indexPath) throws IOException {
         StandardAnalyzer analyzer = new StandardAnalyzer();
         IndexWriterConfig config = new IndexWriterConfig(analyzer);
+        config.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
         FSDirectory directory = FSDirectory.open(Paths.get(indexPath));
         this.indexWriter = new IndexWriter(directory, config);
     }
