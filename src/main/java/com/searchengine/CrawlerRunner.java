@@ -19,7 +19,7 @@ public class CrawlerRunner {public static void main(String[] args) {
 
     CrawlerConfig config = new CrawlerConfig();
     config.setSeedUrl("https://en.wikipedia.org/wiki/Java");
-    config.setMaxPages(5);
+    config.setMaxPages(100);
     config.setDelayBetweenRequestsMs(500);
 
     PageStorage pageStorage = new PageStorage(host, port, password);
